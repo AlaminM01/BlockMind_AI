@@ -21,18 +21,19 @@
 
 ---
 
+</div>
+
 ## 🌟 Key Highlights & Capabilities
 
 - 🔒 **100% Offline & Private:** Runs entirely on your local machine (Windows, macOS, Linux). Zero data leaves your device.
 - 💸 **Zero Cloud API Costs:** No OpenAI, Anthropic, Gemini, Pinecone, or Supabase subscriptions required.
-- ⚡ **Hybrid RAG (FAISS + BM25 + Reciprocal Rank Fusion):** Combines dense semantic vector search with sparse keyword search to accurately pinpoint exact technical terms like `EIP-1559`, `secp256k1`, and Solidity opcodes.
-- 🧠 **DeepSeek-R1 Reasoning & Thought Visualizer:** Supports DeepSeek-R1 reasoning models with real-time collapsible `<think>` process cards and cyberpunk animations.
-- 🕸️ **Interactive Blockchain Knowledge Graph:** Visual HTML5 canvas network linking core blockchain concepts across all 5 indexed books with one-click AI query exploration.
-- 🎓 **Student Study & Certification Quiz Engine:** Built-in interactive quiz and study flashcards with automated scoring, blockchain mastery rankings, and book citations.
-- 📑 **Academic Citation Generator:** One-click copy for **BibTeX**, **APA 7th**, and **IEEE** citations formatted for academic papers and study notes.
+- 📚 **Grounded RAG Pipeline:** Retrieves semantic chunks from verified blockchain books using **FAISS** vector database and **BAAI/bge-small-en-v1.5** embeddings.
 - 🛡️ **Strict Anti-Hallucination Guardrails:** If information is not found in the indexed books, BlockMind explicitly informs you: *"I could not find this information in the uploaded blockchain books."*
-- 🎨 **Modern Cyberpunk UI/UX:** Dark & Light modes, interactive canvas blockchain network background, glassmorphism, and Framer Motion transitions.
+- ⚡ **Lightweight & High-Speed:** Runs smoothly on standard laptops with 8GB RAM without requiring a dedicated GPU.
+- 🎨 **Modern Cyberpunk UI/UX:** Dark & Light modes, interactive HTML5 canvas blockchain network background, glassmorphism, glowing telemetry cards, and smooth Framer Motion animations.
 - 📊 **Telemetry Dashboard:** Live tracking of indexed books, chunk counts, query history, storage breakdown, and similarity match accuracy.
+- 📑 **Knowledge Base Manager:** Drag-and-drop ingestion of PDFs, Markdown, and TXT files with live re-indexing and document preview.
+- 💾 **Export & Bookmarks:** Export full conversation reports to PDF, Markdown, or JSON, and bookmark critical Q&A pairs.
 
 ---
 

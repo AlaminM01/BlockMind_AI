@@ -22,7 +22,6 @@ export const AppProvider = ({ children }) => {
   const [sessions, setSessions] = useState([]);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [pendingQuery, setPendingQuery] = useState('');
 
   // Documents State
   const [documents, setDocuments] = useState([]);
@@ -139,8 +138,6 @@ export const AppProvider = ({ children }) => {
         setMessages,
         isLoading,
         setIsLoading,
-        pendingQuery,
-        setPendingQuery,
         documents,
         totalChunks,
         isDocsLoading,

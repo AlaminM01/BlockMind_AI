@@ -109,27 +109,4 @@ export const updateSettings = async (settings) => {
   return res.data;
 };
 
-export const getQuizTopics = async () => {
-  const res = await api.get('/quiz/topics');
-  return res.data;
-};
-
-export const getQuizQuestions = async (topic, count = 5) => {
-  const params = {};
-  if (topic) params.topic = topic;
-  if (count) params.count = count;
-  const res = await api.get('/quiz', { params });
-  return res.data;
-};
-
-export const submitQuiz = async (submissions) => {
-  const res = await api.post('/quiz/submit', { submissions });
-  return res.data;
-};
-
-export const getKnowledgeGraph = async () => {
-  const res = await api.get('/graph');
-  return res.data;
-};
-
 export default api;

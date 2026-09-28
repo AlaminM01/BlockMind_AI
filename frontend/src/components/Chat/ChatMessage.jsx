@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Copy,
   Check,
@@ -10,9 +10,7 @@ import {
   Sparkles,
   User,
   Cpu,
-  BrainCircuit,
-  ChevronDown,
-  ChevronUp,
+  Award,
   ExternalLink,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
@@ -23,35 +21,12 @@ const ChatMessage = ({ message, onOpenSources, isLast, isStreaming }) => {
   const [copied, setCopied] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isBookmarking, setIsBookmarking] = useState(false);
-  const [showThinking, setShowThinking] = useState(true);
 
   const isUser = message.role === 'user';
   const hasSources = !isUser && message.sources && message.sources.length > 0;
 
-  // Extract DeepSeek / Reasoning models <think>...</think> tags if present
-  const parseContentWithThinking = (rawText) => {
-    if (!rawText || isUser) return { thinking: null, answer: rawText };
-
-    const thinkMatch = rawText.match(/<think>([\s\S]*?)<\/think>/i);
-    if (thinkMatch) {
-      const thinking = thinkMatch[1].trim();
-      const answer = rawText.replace(/<think>[\s\S]*?<\/think>/i, '').trim();
-      return { thinking, answer };
-    }
-
-    // Check for unclosed <think> during streaming
-    const unclosedMatch = rawText.match(/<think>([\s\S]*)$/i);
-    if (unclosedMatch) {
-      return { thinking: unclosedMatch[1].trim(), answer: '' };
-    }
-
-    return { thinking: null, answer: rawText };
-  };
-
-  const { thinking, answer } = parseContentWithThinking(message.content);
-
   const handleCopy = () => {
-    navigator.clipboard.writeText(answer || message.content);
+    navigator.clipboard.writeText(message.content);
     setCopied(true);
     showToast('Answer copied to clipboard', 'success');
     setTimeout(() => setCopied(false), 2000);
@@ -71,8 +46,7 @@ const ChatMessage = ({ message, onOpenSources, isLast, isStreaming }) => {
 
     window.speechSynthesis.cancel();
     // Clean markdown before speaking
-    const textToRead = answer || message.content;
-    const cleanText = textToRead.replace(/[*#`_-]/g, '');
+    const cleanText = message.content.replace(/[*#`_-]/g, '');
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.rate = 1.0;
     utterance.pitch = 1.0;
@@ -91,7 +65,7 @@ const ChatMessage = ({ message, onOpenSources, isLast, isStreaming }) => {
       await api.createBookmark({
         id: message.id || 'bm_' + Date.now(),
         query: isUser ? message.content : 'Blockchain Insight',
-        answer: isUser ? '' : (answer || message.content),
+        answer: isUser ? '' : message.content,
         sources: message.sources || [],
         timestamp: new Date().toISOString(),
         tags: ['Blockchain', 'RAG'],
@@ -139,13 +113,7 @@ const ChatMessage = ({ message, onOpenSources, isLast, isStreaming }) => {
             </span>
             {!isUser && (
               <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono">
-                Hybrid RAG
-              </span>
-            )}
-            {thinking && (
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 font-mono flex items-center gap-1">
-                <BrainCircuit className="w-3 h-3" />
-                Reasoning Active
+                Grounded RAG
               </span>
             )}
           </div>
@@ -184,37 +152,9 @@ const ChatMessage = ({ message, onOpenSources, isLast, isStreaming }) => {
           )}
         </div>
 
-        {/* DeepSeek / Thinking Process Accordion */}
-        {thinking && (
-          <div className="my-2 rounded-xl bg-purple-950/30 border border-purple-500/30 overflow-hidden">
-            <button
-              onClick={() => setShowThinking(!showThinking)}
-              className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-purple-300 hover:bg-purple-900/20 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <BrainCircuit className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
-                <span>Blockchain Reasoning Process ({thinking.length} chars)</span>
-              </div>
-              {showThinking ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-            </button>
-            <AnimatePresence>
-              {showThinking && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  className="px-3 py-2 text-xs text-purple-200/80 font-mono bg-purple-950/40 border-t border-purple-500/20 whitespace-pre-wrap leading-relaxed max-h-60 overflow-y-auto"
-                >
-                  {thinking}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
-
         {/* Formatted Content */}
         <div className="markdown-body text-slate-200 text-sm leading-relaxed whitespace-pre-wrap break-words">
-          {answer || (thinking ? '' : message.content)}
+          {message.content}
           {isStreaming && isLast && (
             <span className="inline-block w-2 h-4 ml-1 bg-cyan-400 animate-pulse align-middle" />
           )}
@@ -232,7 +172,7 @@ const ChatMessage = ({ message, onOpenSources, isLast, isStreaming }) => {
                 onClick={() => onOpenSources(message.sources)}
                 className="text-[11px] font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 hover:underline"
               >
-                <span>Inspect & Cite ({message.sources.length})</span>
+                <span>Inspect All ({message.sources.length})</span>
                 <ExternalLink className="w-3 h-3" />
               </button>
             </div>

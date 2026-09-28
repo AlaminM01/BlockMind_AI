@@ -41,15 +41,7 @@ class OllamaService:
                     return [m["name"] for m in data.get("models", [])]
         except Exception as e:
             logger.debug(f"Could not retrieve Ollama models: {e}")
-        return [
-            "qwen2.5:1.5b",
-            "deepseek-r1:1.5b",
-            "deepseek-r1:7b",
-            "qwen2.5:0.5b",
-            "phi3:mini",
-            "llama3.2:3b",
-            "mistral:latest"
-        ]
+        return ["qwen2.5:1.5b", "phi3:mini", "llama3.2:1b", "mistral:latest"]
 
     def generate(
         self,

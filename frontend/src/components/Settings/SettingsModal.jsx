@@ -89,22 +89,16 @@ const SettingsModal = () => {
                 }
                 className="w-full px-3 py-2 rounded-xl bg-slate-800 border border-white/10 text-xs font-mono text-white focus:outline-none focus:border-cyan-500/50"
               >
-                {(formData.available_models || [
-                  'qwen2.5:1.5b',
-                  'deepseek-r1:1.5b',
-                  'deepseek-r1:7b',
-                  'qwen2.5:0.5b',
-                  'phi3:mini',
-                  'llama3.2:3b',
-                  'mistral:latest'
-                ]).map((m) => (
-                  <option key={m} value={m}>
-                    {m} {m.includes('deepseek') ? '🧠 (Reasoning Model)' : m.includes('0.5b') ? '⚡ (Ultra Low RAM)' : ''}
-                  </option>
-                ))}
+                {(formData.available_models || ['qwen2.5:1.5b', 'phi3:mini', 'llama3.2:1b']).map(
+                  (m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  )
+                )}
               </select>
               <p className="text-[11px] text-slate-400 mt-1">
-                Fast default: <code className="text-cyan-400">qwen2.5:1.5b</code> | Reasoning: <code className="text-purple-400">deepseek-r1:1.5b</code> | Ultra-low RAM (4GB): <code className="text-emerald-400">qwen2.5:0.5b</code>
+                Recommended: <code className="text-cyan-400">qwen2.5:1.5b</code> (lightweight & ultra-fast) or <code className="text-cyan-400">phi3:mini</code>
               </p>
             </div>
 

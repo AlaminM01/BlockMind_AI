@@ -30,8 +30,6 @@ from backend.services.ollama_service import OllamaService
 from backend.services.chat_history_service import ChatHistoryService
 from backend.services.bookmark_service import BookmarkService
 from backend.services.analytics_service import AnalyticsService
-from backend.services.quiz_service import QuizService
-from backend.services.graph_service import BlockchainGraphService
 from backend.utils.logger import setup_logger
 from backend.utils.file_utils import (
     format_file_size,
@@ -379,29 +377,6 @@ def get_dashboard_analytics():
         total_books=len(doc_files),
         total_chunks=vector_store.total_chunks
     )
-
-# ----------------- QUIZ & STUDY ENGINE -----------------
-
-@app.get("/api/quiz/topics")
-def get_quiz_topics():
-    return {"topics": QuizService.get_topics()}
-
-@app.get("/api/quiz")
-def get_quiz_questions(topic: Optional[str] = None, count: int = 5):
-    questions = QuizService.get_quiz(topic=topic, count=count)
-    return {"questions": questions}
-
-@app.post("/api/quiz/submit")
-def submit_quiz_answers(payload: dict):
-    submissions = payload.get("submissions", [])
-    evaluation = QuizService.evaluate_quiz(submissions)
-    return evaluation
-
-# ----------------- BLOCKCHAIN KNOWLEDGE GRAPH -----------------
-
-@app.get("/api/graph")
-def get_knowledge_graph():
-    return BlockchainGraphService.get_knowledge_graph()
 
 # ----------------- SETTINGS -----------------
 

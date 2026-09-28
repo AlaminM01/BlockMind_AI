@@ -20,8 +20,6 @@ const ChatWindow = () => {
     showToast,
     systemHealth,
     settings,
-    pendingQuery,
-    setPendingQuery,
   } = useApp();
 
   const [selectedSources, setSelectedSources] = useState(null);
@@ -37,14 +35,6 @@ const ChatWindow = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isStreaming]);
-
-  useEffect(() => {
-    if (pendingQuery && pendingQuery.trim()) {
-      const q = pendingQuery;
-      setPendingQuery('');
-      handleSendMessage(q);
-    }
-  }, [pendingQuery]);
 
   const handleOpenSources = (sources) => {
     setSelectedSources(sources);

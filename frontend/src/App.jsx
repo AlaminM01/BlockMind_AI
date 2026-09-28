@@ -5,6 +5,8 @@ import BlockchainBackground from './components/BlockchainBackground';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import ChatWindow from './components/Chat/ChatWindow';
+import KnowledgeGraphView from './components/KnowledgeGraph/KnowledgeGraphView';
+import QuizView from './components/Quiz/QuizView';
 import DocumentManager from './components/KnowledgeBase/DocumentManager';
 import DashboardView from './components/Dashboard/DashboardView';
 import BookmarksView from './components/Bookmarks/BookmarksView';
@@ -30,6 +32,8 @@ const AppContent = () => {
         {/* Tab Content Router */}
         <main className="flex-1 flex flex-col overflow-hidden">
           {activeTab === 'chat' && <ChatWindow />}
+          {activeTab === 'graph' && <KnowledgeGraphView />}
+          {activeTab === 'quiz' && <QuizView />}
           {activeTab === 'knowledge' && <DocumentManager />}
           {activeTab === 'dashboard' && <DashboardView />}
           {activeTab === 'bookmarks' && <BookmarksView />}

@@ -1,5 +1,4 @@
-import React from 'react';
-import { MessageSquare, BookOpen, LayoutDashboard, Bookmark, Settings, Cpu, Database, CheckCircle, AlertCircle } from 'lucide-react';
+import { MessageSquare, BookOpen, LayoutDashboard, Bookmark, Settings, Cpu, Database, CheckCircle, AlertCircle, Share2, GraduationCap } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import ThemeToggle from './Common/ThemeToggle';
 
@@ -8,9 +7,11 @@ const Navbar = () => {
 
   const navItems = [
     { id: 'chat', label: 'AI Chat', icon: MessageSquare },
+    { id: 'graph', label: 'Knowledge Map', icon: Share2 },
+    { id: 'quiz', label: 'Study & Quiz', icon: GraduationCap },
     { id: 'knowledge', label: 'Knowledge Base', icon: BookOpen },
-    { id: 'dashboard', label: 'Analytics Dashboard', icon: LayoutDashboard },
-    { id: 'bookmarks', label: 'Saved Answers', icon: Bookmark },
+    { id: 'dashboard', label: 'Analytics', icon: LayoutDashboard },
+    { id: 'bookmarks', label: 'Bookmarks', icon: Bookmark },
   ];
 
   return (
